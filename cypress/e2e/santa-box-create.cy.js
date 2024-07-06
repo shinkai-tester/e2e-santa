@@ -20,6 +20,7 @@ describe("user can create a box and run it", () => {
   //пользователь 1 логинится
   //пользователь 1 запускает жеребьевку
   let newBoxName = faker.word.noun({ length: { min: 5, max: 10 } });
+  let boxId;
   let wishes = faker.word.noun() + faker.word.adverb() + faker.word.adjective();
   let maxAmount = 50;
   let currency = "Евро";
@@ -27,18 +28,26 @@ describe("user can create a box and run it", () => {
 
   it("user logins and create a box", () => {
     cy.visit("/login");
-    cy.login(users.userAutor.email, users.userAutor.password);
+    cy.login(users.userAuthor.email, users.userAuthor.password);
     cy.contains("Создать коробку").click();
     cy.get(boxPage.boxNameField).type(newBoxName);
+    cy.get(".form-card__main div:nth-child(3) [value]")
+      .invoke("val")
+      .then((value) => {
+        boxId = value;
+      });
     cy.get(generalElements.arrowRight).click();
     cy.get(boxPage.sixthIcon).click();
     cy.get(generalElements.arrowRight).click();
     cy.get(boxPage.giftPriceToggle).check({ force: true });
-    cy.get(boxPage.maxAnount).type(maxAmount);
+    cy.get(boxPage.minAmount).type(1);
+    cy.get(boxPage.maxAmount).type(maxAmount);
     cy.get(boxPage.currency).select(currency);
-    cy.get(generalElements.arrowRight).click();
-    cy.get(generalElements.arrowRight).click();
-    cy.get(generalElements.arrowRight).click();
+    cy.get(generalElements.arrowRight).should("be.visible").click();
+    cy.contains("Дополнительные настройки").should("be.visible");
+    cy.get(generalElements.arrowRight)
+      .should("be.visible")
+      .click({ force: true });
     cy.get(dashboardPage.createdBoxName).should("have.text", newBoxName);
     cy.get(".layout-1__header-wrapper-fixed .toggle-menu-item span")
       .invoke("text")
@@ -79,11 +88,12 @@ describe("user can create a box and run it", () => {
 
   after("delete box", () => {
     cy.visit("/login");
-    cy.login(users.userAutor.email, users.userAutor.password);
+    cy.login(users.userAuthor.email, users.userAuthor.password);
     cy.get(
       '.layout-1__header-wrapper-fixed > .layout-1__header > .header > .header__items > .layout-row-start > [href="/account/boxes"] > .header-item > .header-item__text > .txt--med'
     ).click();
-    cy.get(":nth-child(1) > a.base--clickable > .user-card").first().click();
+    cy.get("[href='/box/" + boxId + "']").click();
+    // cy.get(":nth-child(1) > a.base--clickable > .user-card").first().click();
     cy.get(
       ".layout-1__header-wrapper-fixed > .layout-1__header-secondary > .header-secondary > .header-secondary__right-item > .toggle-menu-wrapper > .toggle-menu-button > .toggle-menu-button--inner"
     ).click();
@@ -91,6 +101,9 @@ describe("user can create a box and run it", () => {
     cy.get(":nth-child(2) > .form-page-group__main > .frm-wrapper > .frm").type(
       "Удалить коробку"
     );
-    cy.get(".btn-service").click();
+    cy.get(".btn-service")
+      .contains("Удалить коробку")
+      .should("be.visible")
+      .click({ force: true });
   });
 });

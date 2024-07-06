@@ -1,7 +1,8 @@
 {
   "boxNameField": ":nth-child(1) > .frm",
   "sixthIcon": ":nth-child(6) > .picture_svg_wrapper",
-  "giftPriceToggle": "input",
-  "maxAnount": ".MuiGrid-grid-xs-5 .frm",
-  "currency": ".MuiGrid-grid-xs-7 .frm"
+  "giftPriceToggle": "input[type='checkbox']",
+  "maxAmount": ".MuiGrid-container div:nth-child(2) input",
+  "minAmount": ".MuiGrid-container div:nth-child(1) div input",
+  "currency": ".MuiGrid-container select"
 }
