@@ -28,7 +28,54 @@ const loginPage = require("../fixtures/pages/loginPage.json");
 const generalElements = require("../fixtures/pages/general.json");
 
 Cypress.Commands.add("login", (userName, password) => {
-  cy.get(loginPage.loginField).type(userName);
-  cy.get(loginPage.passwordField).type(password);
-  cy.get(generalElements.submitButton).click({ force: true });
+  cy.enterText(loginPage.loginField, userName);
+  cy.enterText(loginPage.passwordField, password);
+  cy.get(generalElements.submitButton).click();
+});
+
+Cypress.Commands.add("clickElementWithText", (text) => {
+  cy.contains(text).should("be.visible").click();
+});
+
+Cypress.Commands.add("clickElement", (locator) => {
+  cy.get(locator).click();
+});
+
+Cypress.Commands.add("enterText", (locator, text) => {
+  cy.get(locator).type(text);
+});
+
+Cypress.Commands.add("getValue", (locator) => {
+  cy.get(locator)
+    .invoke("val")
+    .then((value) => {
+      return value;
+    });
+});
+
+Cypress.Commands.add("clickElement", (locator) => {
+  cy.get(locator).should("be.visible").click({ force: true });
+});
+
+Cypress.Commands.add("containsMultipleTexts", (selector, texts) => {
+  texts.forEach((text) => {
+    cy.get(selector).should("contain.text", text);
+  });
+});
+
+Cypress.Commands.add("elementHasText", (locator, text) => {
+  cy.get(locator).should("have.text", text);
+});
+
+Cypress.Commands.add("logInAndGetCookies", (username, password) => {
+  cy.login(username, password)
+    .then(() => {
+      return cy.getCookies();
+    })
+    .then((allCookies) => {
+      const cookies = allCookies
+        .map((cookie) => `${cookie.name}=${cookie.value}`)
+        .join("; ");
+      cy.wrap(cookies);
+    });
 });

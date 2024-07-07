@@ -1,0 +1,8 @@
+{
+  "createdBoxName": ".layout-1__header-wrapper-fixed .txt-h3--max-1-lines",
+  "menuItems": ".toggle-menu .toggle-menu-item",
+  "myBoxes": "section.layout-1__header-wrapper-fixed a[href='/account/boxes']",
+  "participantsNames": ".MuiGrid-container div.user-card__name",
+  "confirmDraw": ".santa-modal_content_buttons .btn-main",
+  "notification": ".picture-notice__title"
+}

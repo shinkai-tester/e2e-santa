@@ -1,4 +1,4 @@
 {
-  "loginField": ":nth-child(3) > .frm",
-  "passwordField": ":nth-child(4) > .frm"
+  "loginField": "input[name='email']",
+  "passwordField": "input[name='password']"
 }
