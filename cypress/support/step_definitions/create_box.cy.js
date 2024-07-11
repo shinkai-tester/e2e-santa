@@ -3,7 +3,6 @@ const {
   Given,
   When,
   Then,
-  After,
 } = require("@badeball/cypress-cucumber-preprocessor");
 const createBoxPage = require("../../fixtures/pages/createBoxPage.json");
 const generalElements = require("../../fixtures/pages/general.json");
