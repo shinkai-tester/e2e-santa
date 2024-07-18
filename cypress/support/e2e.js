@@ -17,6 +17,7 @@
 import "./commands";
 import "./boxCommands";
 import "./inviteCommands";
+import "allure-cypress";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

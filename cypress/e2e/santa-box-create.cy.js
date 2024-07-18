@@ -36,7 +36,7 @@ describe("Secret Santa E2E: create box, invite users, and execute draw", () => {
       boxId = id;
     });
     cy.clickElement(generalElements.arrowRight);
-    cy.clickRandomBoxPicture();
+    cy.clickElement(generalElements.arrowRight);
     cy.clickElement(generalElements.arrowRight);
     cy.get(createBoxPage.giftPriceToggle).check({ force: true });
     cy.enterText(createBoxPage.minAmount, minAmount);
@@ -101,7 +101,7 @@ describe("Secret Santa E2E: create box, invite users, and execute draw", () => {
       headers: {
         Cookie: cookies,
       },
-      url: `https://santa-secret.ru/api/box/${boxId}`,
+      url: `${Cypress.env("baseUrl")}/api/box/${boxId}`,
     }).then((response) => {
       expect(response.status).to.equal(200);
     });

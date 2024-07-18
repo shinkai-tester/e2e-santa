@@ -1,4 +1,5 @@
 const { defineConfig } = require("cypress");
+const { allureCypress } = require("allure-cypress/reporter");
 
 module.exports = defineConfig({
   watchForFileChanges: false,
@@ -6,7 +7,7 @@ module.exports = defineConfig({
     baseUrl: "https://santa-secret.ru",
     testIsolation: false,
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      allureCypress(on);
     },
   },
 });
