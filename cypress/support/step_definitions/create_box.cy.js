@@ -38,7 +38,7 @@ When("the user creates a box with the following details:", (dataTable) => {
     boxId = id;
   });
   cy.clickElement(generalElements.arrowRight);
-  cy.clickRandomBoxPicture();
+  cy.clickElement(generalElements.arrowRight);
   cy.clickElement(generalElements.arrowRight);
   cy.get(createBoxPage.giftPriceToggle).check({ force: true });
   cy.enterText(createBoxPage.minAmount, data.minAmount);
@@ -131,7 +131,7 @@ Then("the box should be deleted", () => {
       headers: {
         Cookie: cookies,
       },
-      url: `https://santa-secret.ru/api/box/${boxId}`,
+      url: `${Cypress.env("loginUrl")}/api/box/${boxId}`,
     }).then((response) => {
       expect(response.status).to.equal(200);
       cy.log("Box deleted successfully");

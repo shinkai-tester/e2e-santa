@@ -4,6 +4,7 @@ const createEsbuildPlugin =
   require("@badeball/cypress-cucumber-preprocessor/esbuild").createEsbuildPlugin;
 const addCucumberPreprocessorPlugin =
   require("@badeball/cypress-cucumber-preprocessor").addCucumberPreprocessorPlugin;
+const { allureCypress } = require("allure-cypress/reporter");
 
 module.exports = defineConfig({
   watchForFileChanges: false,
@@ -20,7 +21,11 @@ module.exports = defineConfig({
 
       on("file:preprocessor", bundler);
       addCucumberPreprocessorPlugin(on, config);
+      allureCypress(on, {
+        resultsDir: "./allure-results",
+      });
       return config;
     },
   },
+  chromeWebSecurity: false,
 });

@@ -5,7 +5,9 @@
   "main": "cypress.config.js",
   "scripts": {
     "cy:run": "cypress run",
-    "cy:open": "npx cypress open"
+    "cy:open": "npx cypress open",
+    "report:generate": "allure generate --clean -o allure-report && allure open",
+    "report:clean": "rm -rf allure-results allure-report"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +15,8 @@
     "@badeball/cypress-cucumber-preprocessor": "^20.1.0",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.1",
     "@faker-js/faker": "^8.4.1",
-    "cypress": "^13.13.0"
+    "allure-commandline": "^2.29.0",
+    "allure-cypress": "^3.0.0-beta.7",
+    "cypress": "^13.13.1"
   }
 }
